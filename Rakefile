@@ -219,3 +219,8 @@ namespace :release do
   desc "Build, package and release iOS and OSX distribution"
   task :stable => [:stable_ios, :stable_osx]
 end
+
+desc "Run unit tests"
+task :test do
+  sh "xcodebuild -workspace libPusher.xcworkspace -scheme UnitTests -arch i386 -sdk iphonesimulator clean build TEST_AFTER_BUILD=YES"
+end
