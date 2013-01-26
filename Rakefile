@@ -220,7 +220,21 @@ namespace :release do
   task :stable => [:stable_ios, :stable_osx]
 end
 
-desc "Run unit tests"
-task :test do
-  sh "xcodebuild -workspace libPusher.xcworkspace -scheme UnitTests -arch i386 -sdk iphonesimulator clean build TEST_AFTER_BUILD=YES"
+namespace :test do
+  XcodeBuild::Tasks::BuildTask.new do |t|
+    t.workspace = "libPusher.xcworkspace"
+    t.scheme = "UnitTests"
+    t.configuration = "Debug"
+    t.sdk = "iphonesimulator"
+    t.arch = "i386"
+    t.formatter = XcodeBuild::Formatters::ProgressFormatter.new
+    t.xcodebuild_log_path = XCODEBUILD_LOG
+  end
+
+  desc "Run unit tests"
+  task :run => 'xcode:build' do
+    sh "bundle exec ruby Scripts/run-tests.rb"
+  end
 end
+
+task :test => 'test:run'

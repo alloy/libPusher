@@ -97,8 +97,10 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (~> 0.15)
+  colored
   github-downloads!
   json
+  open4
   osx_keychain
   pusher
   rake

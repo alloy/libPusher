@@ -20,4 +20,6 @@ group :building do
   #gem "cocoapods", path: File.expand_path("~/Code/repos/cocoapods")
   gem "github-downloads", git: "git://github.com/lukeredpath/github-downloads.git"
   gem "osx_keychain"
+  gem "open4"
+  gem "colored"
 end
