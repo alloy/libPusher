@@ -220,7 +220,62 @@ namespace :release do
   task :stable => [:stable_ios, :stable_osx]
 end
 
+module XcodeBuild
+  module Translations
+    module Testing
+      def attempt_to_translate(line)
+        if line =~ /\ARun unit tests for architecture/
+          notify_test_run_started(line)
+        end
+
+        return unless testing?
+      end
+
+      def testing?
+        @testing
+      end
+
+      private
+
+      def notify_test_run_started(line)
+        @testing = true
+
+        notify_delegate(:test_run_started, :required => true)
+      end
+    end
+    register_translation :testing, Testing
+  end
+end
+XcodeBuild::OutputTranslator.use_translation(:testing)
+
+#class TestFormatter < XcodeBuild::Formatters::ProgressFormatter
+  #def report_finished(object)
+    #if object.successful?
+      #super
+    #else
+      ##puts
+      ##report_warnings(object)
+      ##puts
+      ##puts "Finished in #{object.duration} seconds."
+      #object.steps_completed.each do |step|
+        #p step.class
+        #p step
+      #end
+    #end
+  #end
+#end
+
 desc "Run unit tests"
 task :test do
-  sh "xcodebuild -workspace libPusher.xcworkspace -scheme UnitTests -arch i386 -sdk iphonesimulator clean build TEST_AFTER_BUILD=YES"
+  formatter     = XcodeBuild::Formatters::ProgressFormatter.new
+  reporter      = XcodeBuild::Reporter.new(formatter)
+  output_buffer = XcodeBuild::OutputTranslator.new(reporter)
+  arguments     = "-workspace libPusher.xcworkspace " \
+                  "-scheme UnitTests " \
+                  "-arch i386 " \
+                  "-sdk iphonesimulator " \
+                  "clean build " \
+                  "TEST_AFTER_BUILD=YES"
+
+  XcodeBuild.run(arguments, output_buffer)
 end

@@ -22,7 +22,7 @@ describe(@"Pusher Events", ^{
     
     it(@"returns the deserialized JSON as a native object", ^{
 	    [[event.data should] beKindOfClass:[NSDictionary class]];
-      [[event.data should] haveValue:@"it rocks" forKey:@"json"];
+      [[event.data should] haveValue:@"ittttt rocks" forKey:@"json"];
     });
   });
   
