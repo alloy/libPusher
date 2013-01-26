@@ -4,6 +4,7 @@ require 'rubygems'
 require 'open4'
 require 'colored'
 require 'pathname'
+require 'fileutils'
  
 class OTestOutput < Array
   def initialize(io, verbose, source_root)
@@ -49,7 +50,9 @@ ENV['DYLD_NO_FIX_PREBINDING']        = 'YES'
 ENV['DYLD_ROOT_PATH']                = sdk_root
 ENV['IPHONE_SIMULATOR_ROOT']         = sdk_root
 ENV['CFFIXED_USER_HOME']             = File.expand_path('~/Library/Application Support/iPhone Simulator/')
- 
+
+FileUtils.mkdir_p(ENV['CFFIXED_USER_HOME'])
+
 verbose = !!ARGV.delete('--verbose')
 test_suites = ARGV.empty? ? 'All' : ARGV.uniq.join(',')
  
