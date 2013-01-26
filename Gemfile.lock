@@ -100,7 +100,6 @@ DEPENDENCIES
   colored
   github-downloads!
   json
-  open4
   osx_keychain
   pusher
   rake

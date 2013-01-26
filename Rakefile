@@ -233,7 +233,7 @@ namespace :test do
 
   desc "Run unit tests"
   task :run => 'xcode:build' do
-    exec "ruby", "Scripts/run-tests.rb"
+    sh "bundle exec ruby Scripts/run-tests.rb"
   end
 end
 
