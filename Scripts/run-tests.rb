@@ -24,11 +24,14 @@ ENV['IPHONE_SIMULATOR_ROOT']         = sdk_root
 ENV['CFFIXED_USER_HOME']             = File.expand_path('~/Library/Application Support/iPhone Simulator/')
 
 FileUtils.mkdir_p(ENV['CFFIXED_USER_HOME'])
+puts `ls -l #{derived_data_root}`
 
 @verbose = !!ARGV.delete('--verbose')
 test_suites = ARGV.empty? ? 'All' : ARGV.uniq.join(',')
  
 command = "#{File.join(sdk_root, 'Developer/usr/bin/otest')} -SenTest #{test_suites} #{File.join(built_products_dir, "#{test_bundle_name}.octest")} 2>&1"
+
+puts command
 
 def handle_output(line)
   return if !@verbose && line =~ /^Test (Case|Suite)/
