@@ -53,7 +53,7 @@ IO.popen(command) do |io|
   begin
     while line = io.readline
       if output = handle_output(line)
-        $stderr.puts output
+        $stdout.puts output
       end
     end
   rescue EOFError
