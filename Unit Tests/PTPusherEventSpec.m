@@ -17,7 +17,7 @@ describe(@"Pusher Events", ^{
     __block PTPusherEvent *event = [[PTPusherEvent alloc] 
           initWithEventName:@"test-event" 
                     channel:@"test-channel" 
-                       data:@"{\"json\": \"it fails :(\"}"];
+                       data:@"{\"json\": \"it rocks\"}"];
     
     
     it(@"returns the deserialized JSON as a native object", ^{
