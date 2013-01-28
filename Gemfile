@@ -20,11 +20,5 @@ group :building do
   #gem "cocoapods", path: File.expand_path("~/Code/repos/cocoapods")
   gem "github-downloads", :git => "git://github.com/lukeredpath/github-downloads.git"
   gem "osx_keychain"
-end
-
-group :testing do
-  gem "xcodeproj"
-  gem "cocoapods", '~> 0.15'
-  gem "xcodebuild-rb", :git => "git://github.com/lukeredpath/xcodebuild-rb.git"
   gem "ios-sim-test", :git => "git://github.com/alloy/ios-sim-test.git"
 end
